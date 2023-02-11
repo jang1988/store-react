@@ -3,6 +3,8 @@
 .categories {
   ul {
     display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
 
     li {
       background-color: #f9f9f9;
@@ -23,7 +25,7 @@
       }
 
       &.active {
-        background-color: #282828;
+        background-color: #46C2CB;
         color: #fff;
       }
     }
