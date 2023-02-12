@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ItemBlock = ({title, price}) => {
+
+    const [itemCount, setItemCount] = useState(0)
+
+    const onClickAdd = () => {
+      setItemCount(itemCount + 1)
+    }
+
+    console.log('itemCount: ', itemCount)
     return (
         <div className="pizza-block">
             <img
@@ -22,7 +30,7 @@ const ItemBlock = ({title, price}) => {
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price} </div>
-                <div className="button button--outline button--add">
+                <button onClick={onClickAdd} className="button button--outline button--add">
                     <svg
                         width="12"
                         height="12"
@@ -35,8 +43,8 @@ const ItemBlock = ({title, price}) => {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>2</i>
-                </div>
+                    <i>{itemCount}</i>
+                </button>
             </div>
         </div>
     );
