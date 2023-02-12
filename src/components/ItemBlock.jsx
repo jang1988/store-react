@@ -8,7 +8,6 @@ const ItemBlock = ({title, price}) => {
       setItemCount(itemCount + 1)
     }
 
-    console.log('itemCount: ', itemCount)
     return (
         <div className="pizza-block">
             <img
