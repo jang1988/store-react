@@ -1,30 +1,33 @@
 import React, { useState } from 'react';
 
-const ItemBlock = ({title, price}) => {
+const ItemBlock = ({ title, price, imageUrl, sizes, types }) => {
 
-    const [itemCount, setItemCount] = useState(0)
+    const typeName = ['128GB', '256GB']
+
+    const [activeSize, setActiveSize] = useState(0);
+    const [activeType, setActiveType] = useState(0);
+
+    const [itemCount, setItemCount] = useState(0);
 
     const onClickAdd = () => {
-      setItemCount(itemCount + 1)
-    }
+        setItemCount(itemCount + 1);
+    };
 
     return (
         <div className="pizza-block">
-            <img
-                className="pizza-block__image"
-                src="https://jabko.ua/image/cache/catalog/products/2022/09/072318/photo_2022-09-07_22-53-30-420x420.jpg"
-                alt="Phone"
-            />
+            <img className="pizza-block__image" src={imageUrl} alt="Phone" />
             <h4 className="pizza-block__title">{title}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                    <li className="active">128GB</li>
-                    <li>256GB</li>
+                    
+                    {types.map((typeId) => {
+                        return <li onClick={() => setActiveType(typeId)} className={activeType === typeId ? "active" : ""} key={typeId}>{typeName[typeId]}</li>
+                    })}
                 </ul>
                 <ul>
-                    <li className="active">Pro</li>
-                    <li>Max.</li>
-                    <li>Mini</li>
+                    {sizes.map((size, index) => (
+                        <li onClick={() => setActiveSize(index)} className={activeSize === index ? "active" : ""} key={index}>{size}</li>
+                    ))}
                 </ul>
             </div>
             <div className="pizza-block__bottom">

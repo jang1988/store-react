@@ -11,6 +11,8 @@
 
   &__image {
     width: 260px;
+    height: 260px;
+    object-fit: contain;
   }
 
   &__title {

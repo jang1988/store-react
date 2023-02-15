@@ -1,0 +1,32 @@
+[
+    {
+        "id": 0,
+        "imageUrl": "https://touch.com.ua/upload/resize_cache/iblock/1fe/500_500_1/1fe9a68a2398d377039a2258647ee13e.jpg",
+        "title": "Apple iPhone 14 Pro",
+        "types": [0, 1],
+        "sizes": ["Mini", "Pro", "Max"],
+        "price": 47679,
+        "category": 1,
+        "rating": 4
+    },
+    {
+        "id": 1,
+        "imageUrl": "https://scdn.comfy.ua/89fc351a-22e7-41ee-8321-f8a9356ca351/https://cdn.comfy.ua/media/catalog/product/s/m/sm-s901_galaxys22_front_phantomblack_211122_1.jpg/w_600",
+        "title": "Samsung Galaxy S22",
+        "types": [0, 1],
+        "sizes": ["Black", "White", "Red"],
+        "price": 31799,
+        "category": 2,
+        "rating": 3
+    },
+    {
+        "id": 2,
+        "imageUrl": "https://content.rozetka.com.ua/goods/images/big/281062102.jpg",
+        "title": "Xiaomi Mi 11",
+        "types": [0, 1],
+        "sizes": ["Note", "Pro", "Ultra"],
+        "price": 55696,
+        "category": 5,
+        "rating": 5
+    }
+]

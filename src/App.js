@@ -4,26 +4,28 @@ import Header from './components/Header';
 import ItemBlock from './components/ItemBlock';
 import Sort from './components/Sort';
 
+import devices from './assets/devaices.json';
+
 function App() {
-  return (
-    <div className="wrapper">
-     <Header />
-      <div className="content">
-        <div className="container">
-          <div className="content__top">
-            <Categories />
-            <Sort />
-          </div>
-          <h2 className="content__title">Все пиццы</h2>
-          <div className="content__items">
-            <ItemBlock title="Apple iPhone 14 Pro" price="47 619" />
-            <ItemBlock title="Apple iPhone 12 Pro" price="37 900" />
-            <ItemBlock />
-          </div>
+    return (
+        <div className="wrapper">
+            <Header />
+            <div className="content">
+                <div className="container">
+                    <div className="content__top">
+                        <Categories />
+                        <Sort />
+                    </div>
+                    <h2 className="content__title">Все Девайсы</h2>
+                    <div className="content__items">
+                        {devices.map((item) => (
+                            <ItemBlock {...item} key={item.id} />
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default App;
