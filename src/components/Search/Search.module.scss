@@ -1,0 +1,38 @@
+.main {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.input {
+    border: 1px solid rgba($color: #000000, $alpha: 0.1);
+    padding: 8px 15px 8px 45px;
+    min-width: 200px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35px;
+    height: 35px;
+    opacity: .5;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.clear {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 35px;
+    height: 35px;
+    opacity: .5;
+    z-index: 1;
+    cursor: pointer;
+}
