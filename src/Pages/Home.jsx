@@ -4,13 +4,14 @@ import ItemBlock from '../components/ItemBlock';
 import Skeleton from '../components/ItemBlock/Skeleton';
 import Sort from '../components/Sort';
 import Pagination from '../components/Pagination';
+import { SearchContext } from '../App';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
+    const { searchValue } = React.useContext(SearchContext);
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const [currentPage, setCurrentPage] = useState(1);
-
 
     //SORT
     const [sortType, setSortType] = useState({
