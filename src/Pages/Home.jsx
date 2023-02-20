@@ -4,9 +4,22 @@ import ItemBlock from '../components/ItemBlock';
 import Skeleton from '../components/ItemBlock/Skeleton';
 import Sort from '../components/Sort';
 import Pagination from '../components/Pagination';
+
 import { SearchContext } from '../App';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategoryId } from '../redux/slices/filterSlice';
 
 const Home = () => {
+    
+    //CATEGORIES
+    const categoryId = useSelector((state) => state.filter.categoryId)
+    const dispatch = useDispatch()
+
+    const onChangeCategory = (id) => {
+        dispatch(setCategoryId(id))
+    }
+
+
     const { searchValue } = React.useContext(SearchContext);
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -18,9 +31,6 @@ const Home = () => {
         name: 'популярности',
         sort: 'rating',
     });
-
-    //CATEGORIES
-    const [categoryId, setCategoryId] = useState(0);
 
     useEffect(() => {
         const category = categoryId > 0 ? `category=${categoryId}` : '';
@@ -53,7 +63,7 @@ const Home = () => {
     return (
         <div className="container">
             <div className="content__top">
-                <Categories value={categoryId} setCategoryId={(i) => setCategoryId(i)} />
+                <Categories value={categoryId} setCategoryId={onChangeCategory} />
                 <Sort sortType={sortType} setSortType={setSortType} />
             </div>
             <h2 className="content__title">Все Девайсы</h2>
