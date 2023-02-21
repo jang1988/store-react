@@ -12,8 +12,10 @@ import { setCategoryId } from '../redux/slices/filterSlice';
 const Home = () => {
     
     //CATEGORIES
-    const categoryId = useSelector((state) => state.filter.categoryId)
     const dispatch = useDispatch()
+    const categoryId = useSelector((state) => state.filter.categoryId)
+    const sortType = useSelector((state) => state.filter.sort)
+
 
     const onChangeCategory = (id) => {
         dispatch(setCategoryId(id))
@@ -25,12 +27,6 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const [currentPage, setCurrentPage] = useState(1);
-
-    //SORT
-    const [sortType, setSortType] = useState({
-        name: 'популярности',
-        sort: 'rating',
-    });
 
     useEffect(() => {
         const category = categoryId > 0 ? `category=${categoryId}` : '';
@@ -52,19 +48,11 @@ const Home = () => {
 
     const devices = items.map((item) => <ItemBlock {...item} key={item.id} />);
 
-    //ФИЛЬТР ДЕВАЙСОВ
-    // .filter((obj) => {
-    //     if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-    //         return true;
-    //     }
-    //     return false;
-    // })
-
     return (
         <div className="container">
             <div className="content__top">
                 <Categories value={categoryId} setCategoryId={onChangeCategory} />
-                <Sort sortType={sortType} setSortType={setSortType} />
+                <Sort />
             </div>
             <h2 className="content__title">Все Девайсы</h2>
             <div className="content__items">{isLoading ? skeletons : devices}</div>
@@ -74,3 +62,13 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+//ФИЛЬТР ДЕВАЙСОВ
+    // .filter((obj) => {
+    //     if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+    //         return true;
+    //     }
+    //     return false;
+    // })
