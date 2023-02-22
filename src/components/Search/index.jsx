@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { SearchContext } from '../../App';
 import style from './Search.module.scss';
+import debounce from 'lodash.debounce';
 
 const Search = () => {
+    const [value, setValue] = useState('');
+    console.log('value: ', value);
+    const { searchValue, setSearchValue } = useContext(SearchContext);
+    console.log('searchValue: ', searchValue);
 
-    const {searchValue, setSearchValue} =  React.useContext(SearchContext)
+    const inputRef = useRef();
+
+    const onClickClear = () => {
+        setSearchValue('');
+        setValue('');
+        inputRef.current.focus();
+    };
+
+
+
+    const updateSearchEvent = React.useMemo(
+        () => debounce((value) => {
+                    setSearchValue(value)
+                }, 2000),
+        [setSearchValue],
+    );
+
+
+
+    const onChangeInput = (e) => {
+        setValue(e.target.value);
+        updateSearchEvent(e.target.value);
+    };
 
     return (
         <div className={style.main}>
@@ -19,14 +46,15 @@ const Search = () => {
                 <circle cx="232" cy="232" r="56" />
             </svg>
             <input
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                ref={inputRef}
+                value={value}
+                onChange={onChangeInput}
                 className={style.input}
                 placeholder="Search..."
             />
             {searchValue && (
                 <svg
-                    onClick={() => setSearchValue('')}
+                    onClick={onClickClear}
                     className={style.clear}
                     height="50"
                     viewBox="0 0 48 48"

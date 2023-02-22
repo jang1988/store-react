@@ -7,40 +7,43 @@ import Pagination from '../components/Pagination';
 
 import { SearchContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
+import axios from 'axios';
 
 const Home = () => {
-    
     //CATEGORIES
-    const dispatch = useDispatch()
-    const categoryId = useSelector((state) => state.filter.categoryId)
-    const sortType = useSelector((state) => state.filter.sort)
-
+    const dispatch = useDispatch();
+    const categoryId = useSelector((state) => state.filter.categoryId);
+    const sortType = useSelector((state) => state.filter.sort);
+    const currentPage = useSelector((state) => state.filter.pageCount);
 
     const onChangeCategory = (id) => {
-        dispatch(setCategoryId(id))
-    }
-
+        dispatch(setCategoryId(id));
+    };
 
     const { searchValue } = React.useContext(SearchContext);
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const [currentPage, setCurrentPage] = useState(1);
+    const onChangePage = number => {
+        dispatch(setCurrentPage(number))
+    }
 
     useEffect(() => {
         const category = categoryId > 0 ? `category=${categoryId}` : '';
         const search = searchValue ? `&search=${searchValue}` : '';
 
         setIsLoading(true);
-        fetch(
-            `https://63ed0caae6ee53bbf5901b77.mockapi.io/devices?page=${currentPage}&limit=4&${category}&sortBy=${sortType.sort}&order=asc${search}`,
-        )
-            .then((res) => res.json())
-            .then((devices) => {
-                setItems(devices);
-                setIsLoading(false);
+
+        axios
+            .get(
+                `https://63ed0caae6ee53bbf5901b77.mockapi.io/devices?page=${currentPage}&limit=4&${category}&sortBy=${sortType.sort}&order=asc${search}`,
+            )
+            .then((response) => {
+                setItems(response.data)
+                setIsLoading(false)
             });
+
         window.scrollTo(0, 0);
     }, [categoryId, sortType, searchValue, currentPage]);
 
@@ -56,19 +59,17 @@ const Home = () => {
             </div>
             <h2 className="content__title">Все Девайсы</h2>
             <div className="content__items">{isLoading ? skeletons : devices}</div>
-            <Pagination onPageChangePage={(number) => setCurrentPage(number)} />
+            <Pagination currentPage={currentPage} onPageChangePage={(number) => onChangePage(number)} />
         </div>
     );
 };
 
 export default Home;
 
-
-
 //ФИЛЬТР ДЕВАЙСОВ
-    // .filter((obj) => {
-    //     if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-    //         return true;
-    //     }
-    //     return false;
-    // })
+// .filter((obj) => {
+//     if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+//         return true;
+//     }
+//     return false;
+// })
