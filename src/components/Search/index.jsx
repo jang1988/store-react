@@ -1,19 +1,19 @@
-import React, { useContext, useRef, useState } from 'react';
-import { SearchContext } from '../../App';
+import React, { useRef } from 'react';
 import style from './Search.module.scss';
 import debounce from 'lodash.debounce';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchValue } from '../../redux/slices/filterSlice';
 
 const Search = () => {
-    const [value, setValue] = useState('');
-    console.log('value: ', value);
-    const { searchValue, setSearchValue } = useContext(SearchContext);
-    console.log('searchValue: ', searchValue);
+    const dispatch = useDispatch()
+
+    const searchValue = useSelector((state) => state.filter.searchValue);
 
     const inputRef = useRef();
 
     const onClickClear = () => {
-        setSearchValue('');
-        setValue('');
+        dispatch(setSearchValue(''));
+
         inputRef.current.focus();
     };
 
@@ -21,15 +21,15 @@ const Search = () => {
 
     const updateSearchEvent = React.useMemo(
         () => debounce((value) => {
-                    setSearchValue(value)
+            dispatch(setSearchValue(value))
                 }, 2000),
-        [setSearchValue],
+        [dispatch],
     );
 
 
 
     const onChangeInput = (e) => {
-        setValue(e.target.value);
+        dispatch(setSearchValue(e.target.value));
         updateSearchEvent(e.target.value);
     };
 
@@ -47,7 +47,7 @@ const Search = () => {
             </svg>
             <input
                 ref={inputRef}
-                value={value}
+                value={searchValue}
                 onChange={onChangeInput}
                 className={style.input}
                 placeholder="Search..."

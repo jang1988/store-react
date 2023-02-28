@@ -1,35 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
 
-const Sort = () => {
+export const sortList = [
+    {
+        name: 'популярности',
+        sort: 'rating',
+    },
+    {
+        name: 'цене',
+        sort: 'price',
+    },
+    {
+        name: 'алфавиту',
+        sort: 'title',
+    },
+];
 
-    const dispatch =  useDispatch()
-    const sortState = useSelector(state => state.filter.sort)
+const Sort = () => {
+    const dispatch = useDispatch();
+    const sortState = useSelector((state) => state.filter.sort);
+    const sortRef = React.useRef();
 
     const [isVisible, setIsVisible] = useState(false);
-    const list = [
-        {
-            name: 'популярности',
-            sort: 'rating',
-        },
-        {
-            name: 'цене',
-            sort: 'price',
-        },
-        {
-            name: 'алфавиту',
-            sort: 'title',
-        },
-    ];
 
     const onClickListItem = (obj) => {
-        dispatch(setSort(obj))
+        dispatch(setSort(obj));
         setIsVisible(false);
     };
 
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (!e.composedPath().includes(sortRef.current)) {
+                setIsVisible(false);
+            }
+        };
+        document.body.addEventListener('click', handleClickOutside);
+
+        return () => document.body.removeEventListener('click', handleClickOutside)
+
+    }, []);
+
     return (
-        <div className="sort">
+        <div ref={sortRef} className="sort">
             <div className="sort__label">
                 <svg
                     width="10"
@@ -48,7 +61,7 @@ const Sort = () => {
             {isVisible && (
                 <div className="sort__popup">
                     <ul>
-                        {list.map((obj, i) => (
+                        {sortList.map((obj, i) => (
                             <li
                                 onClick={() => onClickListItem(obj)}
                                 className={sortState.sort === obj.sort ? 'active' : ''}

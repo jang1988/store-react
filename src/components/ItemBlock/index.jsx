@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux'
+import {addItem} from '../../redux/slices/cartSlice';
 
-const ItemBlock = ({ title, price, imageUrl, sizes, types }) => {
-
+const ItemBlock = ({ id ,title, price, imageUrl, sizes, types }) => {
+    const dispatch = useDispatch()
+    
     const typeName = ['128GB', '256GB']
-
     const [activeSize, setActiveSize] = useState(0);
     const [activeType, setActiveType] = useState(0);
 
-    const [itemCount, setItemCount] = useState(0);
 
     const onClickAdd = () => {
-        setItemCount(itemCount + 1);
+        const item = {
+            id,
+            title,
+            price,
+            imageUrl,
+            type: activeType,
+            size: activeSize,
+        }
+        dispatch(addItem(item))
     };
 
     return (
@@ -45,7 +54,7 @@ const ItemBlock = ({ title, price, imageUrl, sizes, types }) => {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>{itemCount}</i>
+                    <i>{0}</i>
                 </button>
             </div>
         </div>

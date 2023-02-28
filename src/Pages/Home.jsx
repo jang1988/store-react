@@ -1,35 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Categories from '../components/Categories';
 import ItemBlock from '../components/ItemBlock';
 import Skeleton from '../components/ItemBlock/Skeleton';
 import Sort from '../components/Sort';
 import Pagination from '../components/Pagination';
 
-import { SearchContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import axios from 'axios';
+import qs from 'qs';
+import { sortList } from '../components/Sort';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-    //CATEGORIES
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isMounted = useRef(false);
+    const isSearch = useRef(false);
+
     const categoryId = useSelector((state) => state.filter.categoryId);
     const sortType = useSelector((state) => state.filter.sort);
     const currentPage = useSelector((state) => state.filter.pageCount);
+    const searchValue = useSelector((state) => state.filter.searchValue);
 
     const onChangeCategory = (id) => {
         dispatch(setCategoryId(id));
     };
 
-    const { searchValue } = React.useContext(SearchContext);
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const onChangePage = number => {
-        dispatch(setCurrentPage(number))
-    }
+    const onChangePage = (number) => {
+        dispatch(setCurrentPage(number));
+    };
 
-    useEffect(() => {
+    const fetchDevices = React.useCallback(() => {
         const category = categoryId > 0 ? `category=${categoryId}` : '';
         const search = searchValue ? `&search=${searchValue}` : '';
 
@@ -40,12 +45,52 @@ const Home = () => {
                 `https://63ed0caae6ee53bbf5901b77.mockapi.io/devices?page=${currentPage}&limit=4&${category}&sortBy=${sortType.sort}&order=asc${search}`,
             )
             .then((response) => {
-                setItems(response.data)
-                setIsLoading(false)
+                setItems(response.data);
+                setIsLoading(false);
             });
+    }, [categoryId, sortType, currentPage, searchValue]);
 
+    // Если первый рендер то запрашиваем пиццы
+    useEffect(() => {
         window.scrollTo(0, 0);
-    }, [categoryId, sortType, searchValue, currentPage]);
+
+        if (!isSearch.current) {
+            fetchDevices();
+        }
+
+        isSearch.current = false;
+    }, [fetchDevices]);
+
+    // Если изменили параметры и был первый рендэр
+    useEffect(() => {
+        if (isMounted.current) {
+            const queryString = qs.stringify({
+                categoryId,
+                sortType: sortType.sort,
+                currentPage,
+            });
+            navigate(`?${queryString}`);
+        }
+        isMounted.current = true;
+    }, [categoryId, sortType, currentPage, navigate]);
+
+    // Если был первый рендер то проверяем URL-параметры исохпаняем в редаксе
+    useEffect(() => {
+        if (window.location.search) {
+            const params = qs.parse(window.location.search.substring(1));
+
+            const sort = sortList.find((obj) => obj.sort === params.sortType.sort);
+
+            dispatch(
+                setFilters({
+                    ...params,
+                    sort,
+                }),
+            );
+
+            isSearch.current = true;
+        }
+    }, [dispatch]);
 
     const skeletons = [...new Array(6).keys()].map((i) => <Skeleton key={i} />);
 
@@ -59,7 +104,10 @@ const Home = () => {
             </div>
             <h2 className="content__title">Все Девайсы</h2>
             <div className="content__items">{isLoading ? skeletons : devices}</div>
-            <Pagination currentPage={currentPage} onPageChangePage={(number) => onChangePage(number)} />
+            <Pagination
+                currentPage={currentPage}
+                onPageChangePage={(number) => onChangePage(number)}
+            />
         </div>
     );
 };
