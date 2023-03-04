@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {addItem} from '../../redux/slices/cartSlice';
 
 const ItemBlock = ({ id ,title, price, imageUrl, sizes, types }) => {
     const dispatch = useDispatch()
+    const cartItem = useSelector(state => state.cart.items.find(obj => obj.id === id))
+
+    const addedCount = cartItem ? cartItem.count : 0
     
     const typeName = ['128GB', '256GB']
+
     const [activeSize, setActiveSize] = useState(0);
     const [activeType, setActiveType] = useState(0);
 
@@ -16,9 +20,10 @@ const ItemBlock = ({ id ,title, price, imageUrl, sizes, types }) => {
             title,
             price,
             imageUrl,
-            type: activeType,
-            size: activeSize,
+            type: typeName[activeType],
+            size: sizes[activeSize],
         }
+        
         dispatch(addItem(item))
     };
 
@@ -54,7 +59,7 @@ const ItemBlock = ({ id ,title, price, imageUrl, sizes, types }) => {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>{0}</i>
+                    <i>{addedCount}</i>
                 </button>
             </div>
         </div>
