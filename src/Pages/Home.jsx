@@ -34,20 +34,37 @@ const Home = () => {
         dispatch(setCurrentPage(number));
     };
 
-    const fetchDevices = React.useCallback(() => {
+    const fetchDevices = React.useCallback(async () => {
         const category = categoryId > 0 ? `category=${categoryId}` : '';
         const search = searchValue ? `&search=${searchValue}` : '';
 
         setIsLoading(true);
 
-        axios
-            .get(
+        // axios
+        //     .get(
+        //         `https://63ed0caae6ee53bbf5901b77.mockapi.io/devices?page=${currentPage}&limit=4&${category}&sortBy=${sortType.sort}&order=asc${search}`,
+        //     )
+        //     .then((response) => {
+        //         setItems(response.data);
+        //         setIsLoading(false);
+        //     })
+        //     .catch((err) => {
+        //         setIsLoading(false);
+        //     });
+
+        try {
+            const response = await axios.get(
                 `https://63ed0caae6ee53bbf5901b77.mockapi.io/devices?page=${currentPage}&limit=4&${category}&sortBy=${sortType.sort}&order=asc${search}`,
-            )
-            .then((response) => {
-                setItems(response.data);
-                setIsLoading(false);
-            });
+            );
+            setItems(response.data);
+        } catch (error) {
+            console.log('error: ', error);
+            alert('ОШИБКА');
+        } finally {
+            setIsLoading(false);
+        }
+
+        window.scrollTo(0, 0);
     }, [categoryId, sortType, currentPage, searchValue]);
 
     // Если первый рендер то запрашиваем пиццы
@@ -74,7 +91,7 @@ const Home = () => {
         isMounted.current = true;
     }, [categoryId, sortType, currentPage, navigate]);
 
-    // Если был первый рендер то проверяем URL-параметры исохпаняем в редаксе
+    // Если был первый рендер то проверяем URL-параметры и сохpаняем в редаксе
     useEffect(() => {
         if (window.location.search) {
             const params = qs.parse(window.location.search.substring(1));
