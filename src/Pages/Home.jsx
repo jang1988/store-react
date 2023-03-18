@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Categories from '../components/Categories';
 import ItemBlock from '../components/ItemBlock';
 import Skeleton from '../components/ItemBlock/Skeleton';
@@ -7,10 +7,10 @@ import Pagination from '../components/Pagination';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
-import axios from 'axios';
 import qs from 'qs';
 import { sortList } from '../components/Sort';
 import { useNavigate } from 'react-router-dom';
+import { fetchDevice } from '../redux/slices/deviceSlice';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -23,22 +23,19 @@ const Home = () => {
     const currentPage = useSelector((state) => state.filter.pageCount);
     const searchValue = useSelector((state) => state.filter.searchValue);
 
+    const { items, status } = useSelector((state) => state.device);
+
     const onChangeCategory = (id) => {
         dispatch(setCategoryId(id));
     };
-
-    const [items, setItems] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
 
     const onChangePage = (number) => {
         dispatch(setCurrentPage(number));
     };
 
-    const fetchDevices = React.useCallback(async () => {
+    const getDevices = React.useCallback(async () => {
         const category = categoryId > 0 ? `category=${categoryId}` : '';
         const search = searchValue ? `&search=${searchValue}` : '';
-
-        setIsLoading(true);
 
         // axios
         //     .get(
@@ -52,31 +49,28 @@ const Home = () => {
         //         setIsLoading(false);
         //     });
 
-        try {
-            const response = await axios.get(
-                `https://63ed0caae6ee53bbf5901b77.mockapi.io/devices?page=${currentPage}&limit=4&${category}&sortBy=${sortType.sort}&order=asc${search}`,
-            );
-            setItems(response.data);
-        } catch (error) {
-            console.log('error: ', error);
-            alert('ОШИБКА');
-        } finally {
-            setIsLoading(false);
-        }
+        dispatch(
+            fetchDevice({
+                currentPage,
+                category,
+                sortType,
+                search,
+            }),
+        );
 
         window.scrollTo(0, 0);
-    }, [categoryId, sortType, currentPage, searchValue]);
+    }, [categoryId, sortType, currentPage, searchValue, dispatch]);
 
     // Если первый рендер то запрашиваем пиццы
     useEffect(() => {
         window.scrollTo(0, 0);
 
         if (!isSearch.current) {
-            fetchDevices();
+            getDevices();
         }
 
         isSearch.current = false;
-    }, [fetchDevices]);
+    }, [getDevices]);
 
     // Если изменили параметры и был первый рендэр
     useEffect(() => {
@@ -120,7 +114,11 @@ const Home = () => {
                 <Sort />
             </div>
             <h2 className="content__title">Все Девайсы</h2>
-            <div className="content__items">{isLoading ? skeletons : devices}</div>
+            {status === 'error' ? (
+                <div>ERROR</div>
+            ) : (
+                <div className="content__items">{status === 'loading' ? skeletons : devices}</div>
+            )}
             <Pagination
                 currentPage={currentPage}
                 onPageChangePage={(number) => onChangePage(number)}
