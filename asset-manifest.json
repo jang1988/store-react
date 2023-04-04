@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/static/css/main.814c0bad.css",
-    "main.js": "/static/js/main.328a9f76.js",
-    "static/media/ProximaNova-Regular.eot": "/static/media/ProximaNova-Regular.d97f8f32c098b28c3ab0.eot",
-    "static/media/ProximaNova-Regular.ttf": "/static/media/ProximaNova-Regular.b078618b41b9b6629ea0.ttf",
-    "static/media/ProximaNova-Bold.eot": "/static/media/ProximaNova-Bold.787088b281e017f8c449.eot",
-    "static/media/ProximaNova-Extrabld.eot": "/static/media/ProximaNova-Extrabld.b9fcd9fbe4d0b5e73cbd.eot",
-    "static/media/ProximaNova-Bold.ttf": "/static/media/ProximaNova-Bold.7722451a8c88b6100185.ttf",
-    "static/media/ProximaNova-Extrabld.ttf": "/static/media/ProximaNova-Extrabld.026a945d32b05c6c8710.ttf",
-    "static/media/ProximaNova-Black.eot": "/static/media/ProximaNova-Black.9a114cea74aac9cc06cc.eot",
-    "static/media/ProximaNova-Black.ttf": "/static/media/ProximaNova-Black.5335144c30bdc79a2d6d.ttf",
-    "static/media/ProximaNova-Regular.woff": "/static/media/ProximaNova-Regular.99528640efded3e12591.woff",
-    "static/media/ProximaNova-Bold.woff": "/static/media/ProximaNova-Bold.1f267da183b3d4fe3d5b.woff",
-    "static/media/ProximaNova-Extrabld.woff": "/static/media/ProximaNova-Extrabld.64f095e95e4018946cb1.woff",
-    "static/media/ProximaNova-Black.woff": "/static/media/ProximaNova-Black.131eab64b8a971a4fc73.woff",
-    "static/media/empty-cart.png": "/static/media/empty-cart.f70a01629a82e2c4c310.png",
-    "static/media/store-logo.svg": "/static/media/store-logo.24fe41ff173c92d2db5371b38f518861.svg",
-    "index.html": "/index.html",
-    "main.814c0bad.css.map": "/static/css/main.814c0bad.css.map",
-    "main.328a9f76.js.map": "/static/js/main.328a9f76.js.map"
+    "main.css": "/store-react/static/css/main.9c924a52.css",
+    "main.js": "/store-react/static/js/main.7d9d1869.js",
+    "static/media/ProximaNova-Regular.eot": "/store-react/static/media/ProximaNova-Regular.d97f8f32c098b28c3ab0.eot",
+    "static/media/ProximaNova-Regular.ttf": "/store-react/static/media/ProximaNova-Regular.b078618b41b9b6629ea0.ttf",
+    "static/media/ProximaNova-Bold.eot": "/store-react/static/media/ProximaNova-Bold.787088b281e017f8c449.eot",
+    "static/media/ProximaNova-Extrabld.eot": "/store-react/static/media/ProximaNova-Extrabld.b9fcd9fbe4d0b5e73cbd.eot",
+    "static/media/ProximaNova-Bold.ttf": "/store-react/static/media/ProximaNova-Bold.7722451a8c88b6100185.ttf",
+    "static/media/ProximaNova-Extrabld.ttf": "/store-react/static/media/ProximaNova-Extrabld.026a945d32b05c6c8710.ttf",
+    "static/media/ProximaNova-Black.eot": "/store-react/static/media/ProximaNova-Black.9a114cea74aac9cc06cc.eot",
+    "static/media/ProximaNova-Black.ttf": "/store-react/static/media/ProximaNova-Black.5335144c30bdc79a2d6d.ttf",
+    "static/media/ProximaNova-Regular.woff": "/store-react/static/media/ProximaNova-Regular.99528640efded3e12591.woff",
+    "static/media/ProximaNova-Bold.woff": "/store-react/static/media/ProximaNova-Bold.1f267da183b3d4fe3d5b.woff",
+    "static/media/ProximaNova-Extrabld.woff": "/store-react/static/media/ProximaNova-Extrabld.64f095e95e4018946cb1.woff",
+    "static/media/ProximaNova-Black.woff": "/store-react/static/media/ProximaNova-Black.131eab64b8a971a4fc73.woff",
+    "static/media/empty-cart.png": "/store-react/static/media/empty-cart.f70a01629a82e2c4c310.png",
+    "static/media/store-logo.svg": "/store-react/static/media/store-logo.24fe41ff173c92d2db5371b38f518861.svg",
+    "index.html": "/store-react/index.html",
+    "main.9c924a52.css.map": "/store-react/static/css/main.9c924a52.css.map",
+    "main.7d9d1869.js.map": "/store-react/static/js/main.7d9d1869.js.map"
   },
   "entrypoints": [
-    "static/css/main.814c0bad.css",
-    "static/js/main.328a9f76.js"
+    "static/css/main.9c924a52.css",
+    "static/js/main.7d9d1869.js"
   ]
 }
