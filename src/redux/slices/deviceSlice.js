@@ -25,19 +25,19 @@ export const deviceSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-          .addCase(fetchDevice.pending, (state) => {
-            state.status = 'loading';
-            state.items = [];
-          })
-          .addCase(fetchDevice.fulfilled, (state, action) => {
-            state.items = action.payload;
-            state.status = 'success';
-          })
-          .addCase(fetchDevice.rejected, (state) => {
-            state.status = 'error';
-            state.items = [];
-          });
-      }
+            .addCase(fetchDevice.pending, (state) => {
+                state.status = 'loading';
+                state.items = [];
+            })
+            .addCase(fetchDevice.fulfilled, (state, action) => {
+                state.items = action.payload;
+                state.status = 'success';
+            })
+            .addCase(fetchDevice.rejected, (state) => {
+                state.status = 'error';
+                state.items = [];
+            });
+    },
 });
 
 export const { setItems } = deviceSlice.actions;

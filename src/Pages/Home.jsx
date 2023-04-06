@@ -37,18 +37,6 @@ const Home = () => {
         const category = categoryId > 0 ? `category=${categoryId}` : '';
         const search = searchValue ? `&search=${searchValue}` : '';
 
-        // axios
-        //     .get(
-        //         `https://63ed0caae6ee53bbf5901b77.mockapi.io/devices?page=${currentPage}&limit=4&${category}&sortBy=${sortType.sort}&order=asc${search}`,
-        //     )
-        //     .then((response) => {
-        //         setItems(response.data);
-        //         setIsLoading(false);
-        //     })
-        //     .catch((err) => {
-        //         setIsLoading(false);
-        //     });
-
         dispatch(
             fetchDevice({
                 currentPage,
@@ -136,3 +124,15 @@ export default Home;
 //     }
 //     return false;
 // })
+
+// axios
+//     .get(
+//         `https://63ed0caae6ee53bbf5901b77.mockapi.io/devices?page=${currentPage}&limit=4&${category}&sortBy=${sortType.sort}&order=asc${search}`,
+//     )
+//     .then((response) => {
+//         setItems(response.data);
+//         setIsLoading(false);
+//     })
+//     .catch((err) => {
+//         setIsLoading(false);
+//     });

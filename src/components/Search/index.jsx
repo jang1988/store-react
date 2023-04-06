@@ -8,6 +8,7 @@ const Search = () => {
     const dispatch = useDispatch()
 
     const searchValue = useSelector((state) => state.filter.searchValue);
+    const [valueInput, setValueInput] = React.useState('');
 
     const inputRef = useRef();
 
@@ -17,8 +18,6 @@ const Search = () => {
         inputRef.current.focus();
     };
 
-
-
     const updateSearchEvent = React.useMemo(
         () => debounce((value) => {
             dispatch(setSearchValue(value))
@@ -26,10 +25,8 @@ const Search = () => {
         [dispatch],
     );
 
-
-
     const onChangeInput = (e) => {
-        dispatch(setSearchValue(e.target.value));
+        setValueInput(e.target.value);
         updateSearchEvent(e.target.value);
     };
 
@@ -47,7 +44,7 @@ const Search = () => {
             </svg>
             <input
                 ref={inputRef}
-                value={searchValue}
+                value={valueInput}
                 onChange={onChangeInput}
                 className={style.input}
                 placeholder="Search..."
