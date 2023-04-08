@@ -23,6 +23,8 @@ const Home = () => {
     const currentPage = useSelector((state) => state.filter.pageCount);
     const searchValue = useSelector((state) => state.filter.searchValue);
 
+    // const {categoryId, sortType, currentPage, searchValue} = useSelector((state) => state.filter);
+
     const { items, status } = useSelector((state) => state.device);
 
     const onChangeCategory = (id) => {
