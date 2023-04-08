@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const FullDevice = () => {
+    const navigate = useNavigate()
+
     const { id } = useParams();
 
     const [device, setDevice] = React.useState();
@@ -17,10 +19,12 @@ const FullDevice = () => {
                 setDevice(data);
             } catch (error) {
                 console.log('error: ', error);
+                alert('Device not found')
+                navigate('/')
             }
         })()
 
-    }, [id]);
+    }, [id, navigate]);
 
     if (!device) {
         return 'LOADING'
