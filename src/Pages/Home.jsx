@@ -15,6 +15,7 @@ import { fetchDevice } from '../redux/slices/deviceSlice';
 const Home = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const isMounted = useRef(false);
     const isSearch = useRef(false);
 

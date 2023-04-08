@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Home from './Pages/Home';
 import Cart from './Pages/Cart';
 import NotFound from './Pages/NotFound';
+import FullDevice from './Pages/FullDevice';
 
 function App() {
 
@@ -16,6 +17,8 @@ function App() {
                         <Route path="/store-react" element={<Home />} />
                         <Route path="/cart" element={<Cart />} />
                         <Route path="*" element={<NotFound />} />
+
+                        <Route path="/device/:id" element={<FullDevice />} />
                     </Routes>
                 </div>
         </div>
