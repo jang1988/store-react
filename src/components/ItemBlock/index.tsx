@@ -3,7 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItem, cartItemSelector } from '../../redux/slices/cartSlice';
 import { Link } from 'react-router-dom';
 
-const ItemBlock = ({ id, title, price, imageUrl, sizes, types }) => {
+type ItemBlockProps = {
+    id: string;
+    title: string;
+    price: number;
+    imageUrl: string;
+    sizes: Array<string>;
+    types: number[];
+};
+
+const ItemBlock: React.FC<ItemBlockProps> = ({ id, title, price, imageUrl, sizes, types }) => {
     const dispatch = useDispatch();
     const cartItem = useSelector(cartItemSelector(id));
 

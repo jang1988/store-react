@@ -12,26 +12,30 @@ import { sortList } from '../components/Sort';
 import { useNavigate } from 'react-router-dom';
 import { fetchDevice } from '../redux/slices/deviceSlice';
 
-const Home = () => {
+const Home: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const isMounted = useRef(false);
     const isSearch = useRef(false);
 
+    // @ts-ignore
     const categoryId = useSelector((state) => state.filter.categoryId);
+    // @ts-ignore
     const sortType = useSelector((state) => state.filter.sort);
+    // @ts-ignore
     const currentPage = useSelector((state) => state.filter.pageCount);
+    // @ts-ignore
     const searchValue = useSelector((state) => state.filter.searchValue);
-
+    // @ts-ignore
     const { items, status } = useSelector((state) => state.device);
 
-    const onChangeCategory = (id) => {
+    const onChangeCategory = (id: number) => {
         dispatch(setCategoryId(id));
     };
 
-    const onChangePage = (number) => {
-        dispatch(setCurrentPage(number));
+    const onChangePage = (page: number) => {
+        dispatch(setCurrentPage(page));
     };
 
     const getDevices = React.useCallback(async () => {
@@ -39,6 +43,7 @@ const Home = () => {
         const search = searchValue ? `&search=${searchValue}` : '';
 
         dispatch(
+            // @ts-ignore
             fetchDevice({
                 currentPage,
                 category,
@@ -77,9 +82,9 @@ const Home = () => {
     // Если был первый рендер то проверяем URL-параметры и сохpаняем в редаксе
     useEffect(() => {
         if (window.location.search) {
-            const params = qs.parse(window.location.search.substring(1));
+            const params: any = qs.parse(window.location.search.substring(1));
 
-            const sort = sortList.find((obj) => obj.sort === params.sortType.sort);
+            const sort = sortList.find((obj) => obj.sort === params.sortType?.sort);
 
             dispatch(
                 setFilters({
@@ -94,7 +99,7 @@ const Home = () => {
 
     const skeletons = [...new Array(6).keys()].map((i) => <Skeleton key={i} />);
 
-    const devices = items.map((item) => <ItemBlock {...item} key={item.id} />);
+    const devices = items.map((item: any) => <ItemBlock {...item} key={item.id} />);
 
     return (
         <div className="container">
@@ -110,13 +115,13 @@ const Home = () => {
             )}
             <Pagination
                 currentPage={currentPage}
-                onPageChangePage={(number) => onChangePage(number)}
+                onPageChangePage={(value: number) => onChangePage(value)}
             />
         </div>
     );
 };
 
-export default Home;
+export default Home
 
 //ФИЛЬТР ДЕВАЙСОВ
 // .filter((obj) => {
