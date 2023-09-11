@@ -36,7 +36,6 @@ const Sort = () => {
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
-            console.log(e)
             if (sortRef.current && !e.composedPath().includes(sortRef.current)) {
                 setIsVisible(false);
             }

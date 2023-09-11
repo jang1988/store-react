@@ -99,6 +99,8 @@ const Home: React.FC = () => {
 
     const skeletons = [...new Array(6).keys()].map((i) => <Skeleton key={i} />);
 
+    
+
     const devices = items.map((item: any) => <ItemBlock {...item} key={item.id} />);
 
     return (
