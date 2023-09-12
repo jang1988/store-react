@@ -22,7 +22,7 @@ export const sortList: SortListItem[] = [
     },
 ];
 
-const Sort = () => {
+const Sort: React.FC = () => {
     const dispatch = useDispatch();
     const sortState = useSelector(sortSelector);
     const sortRef = React.useRef<HTMLDivElement>(null);

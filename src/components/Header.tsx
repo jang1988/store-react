@@ -5,7 +5,7 @@ import logoSvg from '../assets/img/store-logo.svg';
 import Search from './Search';
 import { cartSelector } from '../redux/slices/cartSlice';
 
-const Header = () => {
+const Header: React.FC = () => {
     const location = useLocation()
 
     const { items, totalPrice } = useSelector(cartSelector);

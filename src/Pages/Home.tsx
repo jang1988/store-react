@@ -57,7 +57,7 @@ const Home: React.FC = () => {
 
     // Если первый рендер то запрашиваем пиццы
     useEffect(() => {
-        window.scrollTo(0, 0);
+        window.scrollTo(0, 0); // ???
 
         if (!isSearch.current) {
             getDevices();

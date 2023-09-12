@@ -1,5 +1,5 @@
 import React from 'react';
-// import cartEmpty from '../assets/img/empty-cart.png'
+import cartEmpty from '../assets/img/empty-cart.png'
 
 const CartEmpty: React.FC = () => {
     return (
@@ -13,7 +13,7 @@ const CartEmpty: React.FC = () => {
             }}
         >
             <h2>Корзина пуста</h2>
-            <img src={require('../assets/img/empty-cart.png')} alt="cart-empty" />
+            <img src={cartEmpty} alt="cart-empty" />
         </div>
     );
 };
